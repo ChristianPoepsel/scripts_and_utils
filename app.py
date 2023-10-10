@@ -13,26 +13,26 @@ def read_meta_data(file):
 
 def create_path_and_copy(file, target_path, condensed_metadata):
     if condensed_metadata["FileType"] == "JPEG":
-        path = Path(str(target_path) + "/" +
-                    condensed_metadata["Date"] + "/Photos" + "/" + condensed_metadata["CameraModel"] + "/" + "JPEG")
+        path = Path(str(target_path) + "/" + "/Photos" +
+                    condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "JPEG")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "DNG":
-        path = Path(str(target_path) + "/" +
-                    condensed_metadata["Date"] + "/Photos" + "/" + condensed_metadata["CameraModel"] + "/" + "DNG")
+        path = Path(str(target_path) + "/" + "/Photos" +
+                    condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "DNG")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "RAF":
-        path = Path(str(target_path) + "/" +
-                    condensed_metadata["Date"] + "/Photos" + "/" + condensed_metadata["CameraModel"] + "/" + "RAW")
+        path = Path(str(target_path) + "/" + "/Photos" +
+                    condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "RAW")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "MOV" or condensed_metadata["FileType"] == "MP4":
-        path = Path(str(target_path) + "/" +
-                    condensed_metadata["Date"] + "/Videos" + "/" + condensed_metadata["CameraModel"])
+        path = Path(str(target_path) + "/" + "/Videos" +
+                    condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"])
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
