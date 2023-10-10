@@ -1,0 +1,16 @@
+do for all in folder and subfolder
+
+    read file name
+
+
+    check file type
+    break if no image/video
+
+    read meta data
+
+    save metadata in a class
+
+    copy to correct location based on data and camera and add capure time at beginning of filename
+
+    (convert in to readable format if necessary)
+
