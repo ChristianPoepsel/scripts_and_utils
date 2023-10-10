@@ -6,32 +6,32 @@ import exiftool
 
 
 def read_meta_data(file):
-    with exiftool.ExifTool() as et:
+    with exiftool.ExifToolHelper() as et:
         complete_metadata = et.get_metadata(str(file))
-        return complete_metadata
+        return complete_metadata[0]
 
 
 def create_path_and_copy(file, target_path, condensed_metadata):
     if condensed_metadata["FileType"] == "JPEG":
-        path = Path(str(target_path) + "/" + "/Photos" +
+        path = Path(str(target_path) + "/Photos" + "/" +
                     condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "JPEG")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "DNG":
-        path = Path(str(target_path) + "/" + "/Photos" +
+        path = Path(str(target_path) + "/Photos" + "/" +
                     condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "DNG")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "RAF":
-        path = Path(str(target_path) + "/" + "/Photos" +
+        path = Path(str(target_path) + "/Photos" + "/" +
                     condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"] + "/" + "RAW")
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
 
     if condensed_metadata["FileType"] == "MOV" or condensed_metadata["FileType"] == "MP4":
-        path = Path(str(target_path) + "/" + "/Videos" +
+        path = Path(str(target_path) + "/Videos" + "/" +
                     condensed_metadata["Date"] + "/" + condensed_metadata["CameraModel"])
         path.mkdir(parents=True, exist_ok=True)
         shutil.copy2(str(file), str(path))
