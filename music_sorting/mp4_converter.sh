@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLAC_DIR="/Volumes/LR RAW DATA/Music FLAC/AC DC"
+FLAC_DIR="/Volumes/LR RAW DATA/Music FLAC"
 MP4_DIR="/Volumes/LR RAW DATA/Music MP4"
 LOG_FILE="mp4_converter_log.log"
 BITRATE="320k"
