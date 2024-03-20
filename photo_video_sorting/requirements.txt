@@ -1,0 +1,8 @@
+pyexiftool
+requests
+numpy
+matplotlib
+pillow
+path
+exifread
+pyexiftool
