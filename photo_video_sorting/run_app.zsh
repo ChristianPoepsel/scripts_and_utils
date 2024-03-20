@@ -1,7 +1,8 @@
 #!/bin/zsh
 
-SOURCEPATH=/Volumes/Untitled/DCIM/
-TARGETPATH=/Volumes/01_A/test/2024/
+YEAR="2024"
+SOURCEPATH="/Volumes/Untitled/DCIM/"
+TARGETPATH="/Volumes/01_A/MediaFiles/$YEAR/"
 
 
 source venv/bin/activate

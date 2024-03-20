@@ -1,7 +1,0 @@
-Start/End virtual environemnt:
-With Terminal in Folder type: pipenv shell
-To deactivate, type: deactivate
-
-Source Path: /Volumes/Untitled/DCIM/
-
-Target path: /Volumes/LR RAW DATA/Media Files/2020/
