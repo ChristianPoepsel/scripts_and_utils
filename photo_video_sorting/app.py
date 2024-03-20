@@ -1,8 +1,8 @@
 from pathlib import Path
 import shutil
 import exiftool
+import sys
 
-# Define Functions:
 
 
 def read_meta_data(file):
@@ -37,24 +37,13 @@ def create_path_and_copy(file, target_path, condensed_metadata):
         shutil.copy2(str(file), str(path))
 
 
-    # Main Program:
-# source_path = Path(
-#    "/Users/christianpopsel/Programming/Phyton/projects/Photosorting/Testfiles")
-# target_path = Path(
-#    "/Users/christianpopsel/Programming/Phyton/projects/Photosorting/Copies")
 path_choice = ""
 unknown_input = True
 
 while unknown_input == True:
-    year = input(
-        "Please enter the current year:")
-    source_volume = input(
-        "Please enter the name of the source volume (e.g. Untitled):")
-    target_volume = input(
-        "Please enter the name of the target volume (e.g. 01_A):")
 
-    source_path = Path(f"/Volumes/{source_volume}/DCIM/")
-    target_path = Path(f"/Volumes/{target_volume}/Media Files/{year}/")
+    source_path = Path(f"{sys.argv[1]}")
+    target_path = Path(f"{sys.argv[2]}")
 
     print(f"""
         Standard source path: {source_path}
@@ -98,4 +87,3 @@ for file in source_path.rglob("*"):
             "FileType": read_meta_data(file)["File:FileType"],
             "FileName": read_meta_data(file)["File:FileName"]}
         create_path_and_copy(file, target_path, condensed_metadata)
-    # print(check_path_availability(condensed_metadata))
