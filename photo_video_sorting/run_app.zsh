@@ -2,7 +2,7 @@
 
 YEAR="2024"
 SOURCEPATH="/Volumes/Untitled/DCIM/"
-TARGETPATH="/Volumes/01_A/MediaFiles/$YEAR/"
+TARGETPATH="/Volumes/mac_ext_1/MediaFiles/$YEAR/"
 
 
 source venv/bin/activate
