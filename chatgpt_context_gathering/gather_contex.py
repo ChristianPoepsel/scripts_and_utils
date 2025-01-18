@@ -1,12 +1,5 @@
 import os
-
-# Edit these variables as needed:
-root_directory = "/Users/christian/Repos/guide_my_trip_mobile_app/lib/src"  # Absolute or relative path to the directory
-extension_string = ".dart"  # Space-separated extensions (use a leading dot) ".py .dart"
-output_file = "context.txt"  # Name of the output text file
-
-
-extensions = extension_string.split() if extension_string else []
+import argparse
 
 
 def generate_tree(root_dir, prefix="", is_last=True):
@@ -27,13 +20,11 @@ def generate_tree(root_dir, prefix="", is_last=True):
 
     for index, item in enumerate(items):
         path = os.path.join(root_dir, item)
-        # Determine connector: └── for the last item, ├── otherwise
         is_last_item = index == len(items) - 1
         connector = "└── " if is_last_item else "├── "
 
         if os.path.isdir(path):
             lines.append(prefix + connector + item + "/")
-            # For children, update the prefix: add "    " if last item, else "│   "
             extension = "    " if is_last_item else "│   "
             lines.extend(generate_tree(path, prefix + extension, is_last=is_last_item))
         else:
@@ -50,20 +41,22 @@ def gather_files(root_directory, exts=None):
     collected_files = []
     for dirpath, _, filenames in os.walk(root_directory):
         for filename in filenames:
-            # If no extensions specified, collect all files
-            if not exts or any(filename.endswith(ext) for ext in exts):
-                full_path = os.path.join(dirpath, filename)
-                collected_files.append(full_path)
+            if not exts:  # If no extensions specified, collect all files
+                collected_files.append(os.path.join(dirpath, filename))
+            else:
+                # Otherwise, only collect if extension matches
+                if any(filename.endswith(ext) for ext in exts):
+                    full_path = os.path.join(dirpath, filename)
+                    collected_files.append(full_path)
     return collected_files
 
 
-def write_tree_and_files_to_text(files, output_file):
+def write_tree_and_files_to_text(root_directory, files, output_file):
     """
     1) Write the directory tree to the output text file
     2) Then write each file's path and contents to the output text file
        with double lines of # as delimiters.
     """
-    # Generate the directory tree lines
     tree_lines = generate_tree(root_directory)
     with open(output_file, "w", encoding="utf-8") as out:
         # Write the tree structure first
@@ -103,7 +96,40 @@ def write_tree_and_files_to_text(files, output_file):
             out.write(content)
             out.write("\n\n")
 
+    print(f"Done! Files have been written to '{output_file}'.")
 
-files = gather_files(root_directory, extensions)
-write_tree_and_files_to_text(files, output_file)
-print(f"Done! Files have been written to '{output_file}'.")
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate a directory tree of specified root directory and gather the contents of files matching given extensions."
+    )
+    # Positional argument for the root directory
+    parser.add_argument(
+        "root_directory",
+        nargs="?",
+        help="Path to the root directory.",
+    )
+    # Optional argument for extensions
+    parser.add_argument(
+        "--extensions",
+        default=".dart",
+        help="Space-separated extensions with leading dot (e.g. '.py .dart'). Defaults to '.dart'.",
+    )
+    # Optional argument for the output file
+    parser.add_argument(
+        "--output",
+        default="context.txt",
+        help="Name of the output text file. Defaults to 'context.txt'.",
+    )
+
+    args = parser.parse_args()
+
+    # Split extension string if provided
+    exts = args.extensions.split() if args.extensions else []
+
+    files = gather_files(args.root_directory, exts)
+    write_tree_and_files_to_text(args.root_directory, files, args.output)
+
+
+if __name__ == "__main__":
+    main()
